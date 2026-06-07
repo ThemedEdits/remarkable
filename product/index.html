@@ -4,7 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product — The Remarkable</title>
+  <title>Product - The Remarkable</title>
+  <meta name="description" content="View premium laptop details and buy your next laptop from The Remarkable.">
+  <meta name="keywords" content="premium laptop, laptop details, laptop specs, product page, The Remarkable">
+  <meta name="author" content="The Remarkable">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://the-remarkable.vercel.app/product/">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Product - The Remarkable">
+  <meta property="og:description" content="View premium laptop details and buy your next laptop from The Remarkable.">
+  <meta property="og:url" content="https://the-remarkable.vercel.app/product/">
+  <meta property="og:image" content="https://the-remarkable.vercel.app/images/logo.png">
+  <meta property="og:site_name" content="The Remarkable">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Product - The Remarkable">
+  <meta name="twitter:description" content="View premium laptop details and buy your next laptop from The Remarkable.">
+  <meta name="twitter:image" content="https://the-remarkable.vercel.app/images/logo.png">
+  <link rel="icon" href="/images/product.png" type="image/png">
+  <link rel="shortcut icon" href="/images/product.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/product.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/pages.css">
@@ -21,12 +40,16 @@
 
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">The <span>Remarkable</span></a>
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.png" alt="The Remarkable Logo" />
+        <span class="logo-text">The <span style="color: white;">Remarkable</span></span>
+      </a>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/shop/">Shop</a></li>
         <li><a href="/cart/">Cart</a></li>
         <li><a href="/#about">About</a></li>
+        <li><a href="/#faq">FAQs</a></li>
         <li><a href="/#contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
@@ -135,6 +158,27 @@
     const productId = params.get('id');
     const product = productId ? getProductById(productId) : null;
 
+    const updateMetaTag = (attrName, content, attrType = 'name') => {
+      let selector = `${attrType}="${attrName}"`;
+      let tag = document.querySelector(`meta[${selector}]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(attrType, attrName);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    const updateCanonical = (url) => {
+      let link = document.querySelector('link[rel="canonical"]');
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', url);
+    };
+
     if (!product) {
       document.getElementById('product-page-content').innerHTML = `
       <div style="text-align:center;padding:120px 24px;">
@@ -144,7 +188,21 @@
         <a href="/shop/" class="btn btn-primary"><i class="fa-solid fa-shop"></i> Back to Shop</a>
       </div>`;
     } else {
-      document.title = `${product.name} — The Remarkable`;
+      const pageTitle = `${product.name} - The Remarkable`;
+      document.title = pageTitle;
+      const pageDescription = product.shortDesc || 'View premium laptop details and buy your next laptop from The Remarkable.';
+      const pageUrl = window.location.href;
+      const pageImage = product.images?.[0] || '/images/logo.png';
+
+      updateMetaTag('description', pageDescription);
+      updateMetaTag('og:title', pageTitle, 'property');
+      updateMetaTag('og:description', pageDescription, 'property');
+      updateMetaTag('og:url', pageUrl, 'property');
+      updateMetaTag('og:image', pageImage, 'property');
+      updateMetaTag('twitter:title', pageTitle);
+      updateMetaTag('twitter:description', pageDescription);
+      updateMetaTag('twitter:image', pageImage);
+      updateCanonical(pageUrl);
 
       const starsHTML = (r) => {
         let s = '';
@@ -402,7 +460,7 @@
         window.showToast('Added to Cart', `${product.name} × ${qty}`, 'success', 'fa-cart-shopping');
       });
 
-      // Buy now — add to cart then redirect
+      // Buy now - add to cart then redirect
       document.getElementById('buy-now-btn')?.addEventListener('click', (e) => {
         if (!product.inStock) return;
         e.preventDefault();
