@@ -4,10 +4,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart — The Remarkable</title>
+  <title>Cart - The Remarkable</title>
+  <meta name="description"
+    content="Review your selected premium laptops and proceed to secure checkout. Fast delivery and cash-on-delivery options available across Pakistan.">
+  <meta name="keywords" content="laptop cart, premium laptop cart, checkout Pakistan, cart page, The Remarkable">
+  <meta name="author" content="The Remarkable">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://the-remarkable.vercel.app/cart/">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cart - The Remarkable">
+  <meta property="og:description"
+    content="Review your selected premium laptops and proceed to secure checkout. Fast delivery and cash-on-delivery options available across Pakistan.">
+  <meta property="og:url" content="https://the-remarkable.vercel.app/cart/">
+  <meta property="og:image" content="https://the-remarkable.vercel.app/images/logo.png">
+  <meta property="og:site_name" content="The Remarkable">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cart - The Remarkable">
+  <meta name="twitter:description"
+    content="Review your selected premium laptops and proceed to secure checkout. Fast delivery and cash-on-delivery options available across Pakistan.">
+  <meta name="twitter:image" content="https://the-remarkable.vercel.app/images/logo.png">
+  <link rel="icon" href="/images/cart.png" type="image/png">
+  <link rel="shortcut icon" href="/images/cart.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/cart.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/pages.css">
 </head>
 
 <body>
@@ -21,16 +43,17 @@
 
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <a href="/" class="nav-logo">The <span>Remarkable</span></a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="cart.html" class="active">Cart</a></li>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/cart/" class="active">Cart</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/#contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="cart.html" class="nav-icon-btn" title="Cart">
+        <a href="/cart/" class="nav-icon-btn" title="Cart">
           <i class="fa-solid fa-bag-shopping"></i>
           <span class="cart-count"></span>
         </a>
@@ -44,11 +67,11 @@
   </nav>
 
   <div class="mobile-menu">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="cart.html">Cart</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="/">Home</a>
+    <a href="/shop/">Shop</a>
+    <a href="/cart/">Cart</a>
+    <a href="/#about">About</a>
+    <a href="/#contact">Contact</a>
   </div>
 
   <div id="cart-overlay">
@@ -64,7 +87,7 @@
           <span class="cart-subtotal-val">PKR 0</span>
         </div>
         <p class="cart-note"><i class="fa-solid fa-truck"></i> Free delivery on orders above PKR 50,000</p>
-        <a href="checkout.html" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+        <a href="/checkout/" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
       </div>
     </div>
   </div>
@@ -74,9 +97,9 @@
     <div class="container">
       <div class="page-hero-inner">
         <nav class="breadcrumb">
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <i class="fa-solid fa-chevron-right"></i>
-          <a href="shop.html">Shop</a>
+          <a href="/shop/">Shop</a>
           <i class="fa-solid fa-chevron-right"></i>
           <span>Cart</span>
         </nav>
@@ -95,7 +118,7 @@
           style="font-size:4rem;color:var(--text-dim);margin-bottom:24px;display:block;"></i>
         <h2 style="font-family:var(--ff-display);font-size:2rem;margin-bottom:12px;">Your cart is empty</h2>
         <p style="color:var(--text-muted);margin-bottom:32px;">Looks like you haven't added any laptops yet.</p>
-        <a href="shop.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-shop"></i> Browse Collection</a>
+        <a href="/shop/" class="btn btn-primary btn-lg"><i class="fa-solid fa-shop"></i> Browse Collection</a>
       </div>
 
       <!-- CART CONTENT -->
@@ -112,7 +135,7 @@
 
           <div
             style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:12px;">
-            <a href="shop.html" class="btn btn-outline">
+            <a href="/shop/" class="btn btn-outline">
               <i class="fa-solid fa-arrow-left"></i> Continue Shopping
             </a>
             <button class="btn btn-ghost" id="clear-cart-btn">
@@ -144,7 +167,7 @@
             <span class="label">Total</span>
             <span class="val" id="summary-total">PKR 0</span>
           </div>
-          <a href="checkout.html" class="btn btn-primary"
+          <a href="/checkout/" class="btn btn-primary"
             style="width:100%;margin-top:20px;justify-content:center;padding:16px;">
             <i class="fa-solid fa-lock"></i> Proceed to Checkout
           </a>
@@ -179,23 +202,23 @@
           <div class="footer-logo">The <span>Remarkable</span></div>
           <p class="footer-desc">Pakistan's premier destination for premium laptops.</p>
           <div class="footer-socials">
-            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://wa.me/923001234567" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="/#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="/#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/923243183053" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
         <div>
           <div class="footer-col-title">Quick Links</div>
           <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
           </ul>
         </div>
         <div>
           <div class="footer-col-title">Categories</div>
           <ul class="footer-links">
-            <li><a href="shop.html?cat=business">Business</a></li>
-            <li><a href="shop.html?cat=gaming">Gaming</a></li>
+            <li><a href="/shop/?cat=business">Business</a></li>
+            <li><a href="/shop/?cat=gaming">Gaming</a></li>
           </ul>
         </div>
         <div>
@@ -213,13 +236,13 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/923001234567?text=Hello!" id="whatsapp-btn" target="_blank"><i
+  <a href="https://wa.me/923243183053?text=Hello!" id="whatsapp-btn" target="_blank"><i
       class="fa-brands fa-whatsapp"></i></a>
   <button id="scroll-top"><i class="fa-solid fa-chevron-up"></i></button>
   <div id="toast-container"></div>
 
   <script type="module">
-    import './js/main.js';
+    import '/js/main.js';
 
     let discount = 0;
     const COUPONS = { 'WELCOME10': 0.10, 'SAVE15': 0.15, 'REMARKABLE20': 0.20 };
@@ -255,7 +278,7 @@
           <div>
             <div class="cart-row-name">${item.name}</div>
             <div class="cart-row-variant">${item.brand}${item.color ? ' · ' + item.color : ''}</div>
-            <a href="product.html?id=${item.id}" style="font-size:0.75rem;color:var(--gold);margin-top:4px;display:inline-block;">
+            <a href="/product/?id=${item.id}" style="font-size:0.75rem;color:var(--gold);margin-top:4px;display:inline-block;">
               <i class="fa-solid fa-eye"></i> View Details
             </a>
           </div>

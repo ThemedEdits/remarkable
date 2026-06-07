@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout — The Remarkable</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/pages.css">
 </head>
 
 <body>
@@ -22,17 +22,17 @@
   <!-- NAVBAR -->
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <a href="/" class="nav-logo">The <span>Remarkable</span></a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="cart.html">Cart</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#faq">FAQs</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/shop/">Shop</a></li>
+        <li><a href="/cart/">Cart</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#faq">FAQs</a></li>
+        <li><a href="/#contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="cart.html" class="nav-icon-btn" title="Cart">
+        <a href="/cart/" class="nav-icon-btn" title="Cart">
           <i class="fa-solid fa-bag-shopping"></i>
           <span class="cart-count"></span>
         </a>
@@ -49,12 +49,12 @@
 
   <!-- MOBILE MENU -->
   <div class="mobile-menu">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="cart.html">Cart</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQs</a>
-    <a href="#contact">Contact</a>
+    <a href="/">Home</a>
+    <a href="/shop/">Shop</a>
+    <a href="/cart/">Cart</a>
+    <a href="/#about">About</a>
+    <a href="/#faq">FAQs</a>
+    <a href="/#contact">Contact</a>
   </div>
 
   <!-- PAGE HERO -->
@@ -62,9 +62,9 @@
     <div class="container">
       <div class="page-hero-inner">
         <nav class="breadcrumb">
-          <a href="index.html">Home</a>
+          <a href="/">Home</a>
           <i class="fa-solid fa-chevron-right"></i>
-          <a href="cart.html">Cart</a>
+          <a href="/cart/">Cart</a>
           <i class="fa-solid fa-chevron-right"></i>
           <span>Checkout</span>
         </nav>
@@ -87,10 +87,10 @@
       <span id="order-id-display">Loading...</span>
     </div>
     <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="shop.html" class="btn btn-primary btn-lg">
+      <a href="/shop/" class="btn btn-primary btn-lg">
         <i class="fa-solid fa-shop"></i> Continue Shopping
       </a>
-      <a href="https://wa.me/923001234567" class="btn btn-outline btn-lg" target="_blank">
+      <a href="https://wa.me/923243183053" class="btn btn-outline btn-lg" target="_blank">
         <i class="fa-brands fa-whatsapp"></i> Contact Us on WhatsApp
       </a>
     </div>
@@ -253,13 +253,13 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/923001234567?text=Hello!" id="whatsapp-btn" target="_blank"><i
+  <a href="https://wa.me/923243183053?text=Hello!" id="whatsapp-btn" target="_blank"><i
       class="fa-brands fa-whatsapp"></i></a>
   <div id="toast-container"></div>
 
   <script type="module">
-    import { saveOrder } from './js/firebase.js';
-    import './js/main.js';
+    import { saveOrder } from '/js/firebase.js';
+    import '/js/main.js';
 
     function getCart() { return JSON.parse(localStorage.getItem('tr_cart') || '[]'); }
 
@@ -268,7 +268,7 @@
       const list = document.getElementById('order-items-list');
 
       if (!cart.length) {
-        window.location.href = 'cart.html';
+        window.location.href = '/cart/';
         return;
       }
 

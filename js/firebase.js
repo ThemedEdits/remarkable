@@ -310,3 +310,4 @@ export function getRelatedProducts(product, limit = 3) {
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, limit);
 }
+

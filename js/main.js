@@ -158,7 +158,7 @@ function renderCartDrawer() {
       <div class="cart-empty">
         <i class="fa-solid fa-cart-shopping"></i>
         <p>Your cart is empty.<br>Add some remarkable laptops!</p>
-        <a href="shop.html" class="btn btn-outline btn-sm" onclick="closeCartDrawer()">
+        <a href="/shop/" class="btn btn-outline btn-sm" onclick="closeCartDrawer()">
           <i class="fa-solid fa-shop"></i> Shop Now
         </a>
       </div>`;
@@ -250,14 +250,53 @@ function initNavbar() {
     }
   }
 
-  // Active link
-  const path = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
-      a.classList.add('active');
-    }
-  });
+  const sectionAnchors = ['about', 'faq', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+
+  const getPathname = () => window.location.pathname.replace(/\/$/, '') || '/';
+  const getHomeSectionHash = () => {
+    if (getPathname() !== '/') return '';
+    const checkpoint = window.scrollY + window.innerHeight / 3;
+    let activeHash = '';
+    sectionAnchors.forEach(id => {
+      const section = document.getElementById(id);
+      if (!section) return;
+      if (section.offsetTop <= checkpoint) {
+        activeHash = `#${id}`;
+      }
+    });
+    return activeHash;
+  };
+
+  const updateActiveLinks = (hashOverride = null) => {
+    const pathname = getPathname();
+    const activeHash = hashOverride !== null ? hashOverride : window.location.hash || '';
+    navLinks.forEach(link => link.classList.remove('active'));
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const url = new URL(href, window.location.origin);
+      const linkPath = url.pathname.replace(/\/$/, '') || '/';
+      const linkHash = url.hash || '';
+      if (linkPath !== pathname) return;
+      if (linkHash) {
+        if (linkHash === activeHash) {
+          link.classList.add('active');
+        }
+      } else if (!activeHash) {
+        link.classList.add('active');
+      }
+    });
+  };
+
+  const onScrollUpdateActive = () => {
+    if (getPathname() !== '/') return;
+    updateActiveLinks(getHomeSectionHash());
+  };
+
+  updateActiveLinks();
+  window.addEventListener('hashchange', () => updateActiveLinks());
+  window.addEventListener('scroll', onScrollUpdateActive, { passive: true });
 }
 
 // ── Scroll to Top ────────────────────────────
@@ -381,3 +420,4 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   initToasts();
 });
+

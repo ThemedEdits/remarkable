@@ -155,7 +155,7 @@ npx serve the-remarkable
 
 ## 📱 WhatsApp
 
-Replace `923001234567` with your actual WhatsApp number (with country code, no +) in:
+Replace `923243183053` with your actual WhatsApp number (with country code, no +) in:
 - `index.html`
 - `shop.html`
 - `product.html`
@@ -170,7 +170,7 @@ Replace `923001234567` with your actual WhatsApp number (with country code, no +
 | What | Where |
 |------|-------|
 | Store name | Search & replace "The Remarkable" |
-| Phone number | Replace `923001234567` |
+| Phone number | Replace `923243183053` |
 | WhatsApp number | Replace in all HTML files |
 | Address | `index.html` contact section + footer |
 | Colors | `css/style.css` `:root` variables |
