@@ -1257,7 +1257,7 @@ textarea.form-input {
 /* ── WhatsApp Floating ── */
 #whatsapp-btn {
   position: fixed;
-  bottom: 10px;
+  bottom: 70px;
   right: 28px;
   width: 44px;
   height: 44px;
@@ -1283,7 +1283,7 @@ textarea.form-input {
 /* ── Scroll to Top ── */
 #scroll-top {
   position: fixed;
-  bottom: 66px;
+  bottom: 126px;
   right: 28px;
   width: 44px;
   height: 44px;
