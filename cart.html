@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — The Remarkable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div id="page-loader">
+    <div class="loader-inner">
+      <div class="loader-logo">The Remarkable</div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="cart.html" class="active">Cart</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count"></span>
+        </a>
+        <button class="nav-icon-btn" data-cart title="Quick Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count"></span>
+        </button>
+        <div class="nav-hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+  <div id="cart-overlay">
+    <div id="cart-drawer">
+      <div class="cart-drawer-head">
+        <h2 class="cart-drawer-title">Your Cart</h2>
+        <button class="cart-drawer-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-drawer-body"></div>
+      <div class="cart-drawer-foot">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-val">PKR 0</span>
+        </div>
+        <p class="cart-note"><i class="fa-solid fa-truck"></i> Free delivery on orders above PKR 50,000</p>
+        <a href="checkout.html" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="page-hero-inner">
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="shop.html">Shop</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Cart</span>
+        </nav>
+        <h1 class="page-hero-title">Your <span style="font-style:italic;color:var(--gold)">Cart</span></h1>
+        <p class="page-hero-sub" id="cart-hero-sub">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="cart-section">
+    <div class="container">
+
+      <!-- EMPTY STATE -->
+      <div id="cart-empty-state" style="display:none;text-align:center;padding:80px 0;">
+        <i class="fa-solid fa-cart-shopping"
+          style="font-size:4rem;color:var(--text-dim);margin-bottom:24px;display:block;"></i>
+        <h2 style="font-family:var(--ff-display);font-size:2rem;margin-bottom:12px;">Your cart is empty</h2>
+        <p style="color:var(--text-muted);margin-bottom:32px;">Looks like you haven't added any laptops yet.</p>
+        <a href="shop.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-shop"></i> Browse Collection</a>
+      </div>
+
+      <!-- CART CONTENT -->
+      <div class="cart-grid" id="cart-content">
+        <div class="cart-main">
+          <div class="cart-table-head">
+            <div>Product</div>
+            <div>Price</div>
+            <div>Quantity</div>
+            <div>Total</div>
+            <div></div>
+          </div>
+          <div class="cart-items-list" id="cart-items-list"></div>
+
+          <div
+            style="display:flex;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap;gap:12px;">
+            <a href="shop.html" class="btn btn-outline">
+              <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+            </a>
+            <button class="btn btn-ghost" id="clear-cart-btn">
+              <i class="fa-solid fa-trash"></i> Clear Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="cart-summary">
+          <h3 class="cart-summary-title">Order Summary</h3>
+          <div class="summary-row">
+            <span class="label">Subtotal (<span id="item-count">0</span> items)</span>
+            <span class="val" id="summary-subtotal">PKR 0</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Delivery</span>
+            <span class="val" id="summary-delivery">Free</span>
+          </div>
+          <div class="coupon-row">
+            <input type="text" class="coupon-input" id="coupon-input" placeholder="Coupon code">
+            <button class="btn btn-outline btn-sm" onclick="applyCoupon()">Apply</button>
+          </div>
+          <div class="summary-row" id="discount-row" style="display:none;">
+            <span class="label" style="color:var(--green)"><i class="fa-solid fa-tag"></i> Discount</span>
+            <span class="val" id="summary-discount" style="color:var(--green)">-PKR 0</span>
+          </div>
+          <hr class="summary-divider">
+          <div class="summary-row summary-total">
+            <span class="label">Total</span>
+            <span class="val" id="summary-total">PKR 0</span>
+          </div>
+          <a href="checkout.html" class="btn btn-primary"
+            style="width:100%;margin-top:20px;justify-content:center;padding:16px;">
+            <i class="fa-solid fa-lock"></i> Proceed to Checkout
+          </a>
+          <div class="secure-badge" style="margin-top:12px;">
+            <i class="fa-solid fa-shield-check"></i>
+            <span>Secure checkout · COD available</span>
+          </div>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+            <div
+              style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--text-dim);margin-bottom:12px;text-transform:uppercase;">
+              We Accept</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <span
+                style="padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:0.75rem;color:var(--text-muted);">
+                <i class="fa-solid fa-money-bill-wave" style="color:var(--green);"></i> Cash on Delivery
+              </span>
+              <span
+                style="padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:0.75rem;color:var(--text-muted);">
+                <i class="fa-solid fa-building-columns" style="color:var(--gold);"></i> Bank Transfer
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">The <span>Remarkable</span></div>
+          <p class="footer-desc">Pakistan's premier destination for premium laptops.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/923001234567" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="shop.html?cat=business">Business</a></li>
+            <li><a href="shop.html?cat=gaming">Gaming</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>hello@theremarkable.pk</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 The Remarkable. All rights reserved.
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923001234567?text=Hello!" id="whatsapp-btn" target="_blank"><i
+      class="fa-brands fa-whatsapp"></i></a>
+  <button id="scroll-top"><i class="fa-solid fa-chevron-up"></i></button>
+  <div id="toast-container"></div>
+
+  <script type="module">
+    import './js/main.js';
+
+    let discount = 0;
+    const COUPONS = { 'WELCOME10': 0.10, 'SAVE15': 0.15, 'REMARKABLE20': 0.20 };
+
+    function getCart() { return JSON.parse(localStorage.getItem('tr_cart') || '[]'); }
+    function saveCart(cart) { localStorage.setItem('tr_cart', JSON.stringify(cart)); }
+
+    function renderCart() {
+      const cart = getCart();
+      const list = document.getElementById('cart-items-list');
+      const emptyState = document.getElementById('cart-empty-state');
+      const cartContent = document.getElementById('cart-content');
+      const heroSub = document.getElementById('cart-hero-sub');
+
+      if (cart.length === 0) {
+        emptyState.style.display = 'block';
+        cartContent.style.display = 'none';
+        heroSub.textContent = '0 items';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      cartContent.style.display = 'grid';
+      const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+      heroSub.textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`;
+      document.getElementById('item-count').textContent = totalItems;
+
+      list.innerHTML = cart.map(item => `
+      <div class="cart-table-row" data-id="${item.id}" data-color="${item.color || ''}">
+        <div class="cart-row-product">
+          <img class="cart-row-img" src="${item.image}" alt="${item.name}"
+            onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=60'">
+          <div>
+            <div class="cart-row-name">${item.name}</div>
+            <div class="cart-row-variant">${item.brand}${item.color ? ' · ' + item.color : ''}</div>
+            <a href="product.html?id=${item.id}" style="font-size:0.75rem;color:var(--gold);margin-top:4px;display:inline-block;">
+              <i class="fa-solid fa-eye"></i> View Details
+            </a>
+          </div>
+        </div>
+        <div class="cart-row-price">PKR ${item.price.toLocaleString()}</div>
+        <div>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="changeQty('${item.id}','${item.color || ''}',-1)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty('${item.id}','${item.color || ''}',1)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cart-row-total">PKR ${(item.price * item.qty).toLocaleString()}</div>
+        <button class="cart-row-remove" onclick="removeItem('${item.id}','${item.color || ''}')">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>`).join('');
+
+      updateSummary(cart);
+    }
+
+    function updateSummary(cart) {
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const discountAmt = Math.floor(subtotal * discount);
+      const delivery = subtotal >= 50000 ? 0 : 500;
+      const total = subtotal - discountAmt + delivery;
+
+      document.getElementById('summary-subtotal').textContent = `PKR ${subtotal.toLocaleString()}`;
+      document.getElementById('summary-delivery').textContent = delivery === 0 ? 'Free' : `PKR ${delivery.toLocaleString()}`;
+      document.getElementById('summary-total').textContent = `PKR ${total.toLocaleString()}`;
+
+      const drow = document.getElementById('discount-row');
+      if (discountAmt > 0) {
+        drow.style.display = 'flex';
+        document.getElementById('summary-discount').textContent = `-PKR ${discountAmt.toLocaleString()}`;
+      } else {
+        drow.style.display = 'none';
+      }
+    }
+
+    window.changeQty = (id, color, delta) => {
+      const cart = getCart();
+      const item = cart.find(i => i.id === id && (i.color || '') === (color || ''));
+      if (!item) return;
+      item.qty = Math.max(1, item.qty + delta);
+      saveCart(cart);
+      renderCart();
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; el.classList.toggle('visible', count > 0); });
+    };
+
+    window.removeItem = (id, color) => {
+      let cart = getCart();
+      cart = cart.filter(i => !(i.id === id && (i.color || '') === (color || '')));
+      saveCart(cart);
+      renderCart();
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.querySelectorAll('.cart-count').forEach(el => { el.textContent = count; el.classList.toggle('visible', count > 0); });
+      window.showToast('Item removed', '', 'default', 'fa-trash');
+    };
+
+    window.applyCoupon = () => {
+      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+      if (COUPONS[code]) {
+        discount = COUPONS[code];
+        updateSummary(getCart());
+        window.showToast('Coupon Applied!', `${Math.round(discount * 100)}% discount applied.`, 'success', 'fa-tag');
+      } else {
+        window.showToast('Invalid Coupon', 'This code is not valid or has expired.', 'error', 'fa-circle-xmark');
+      }
+    };
+
+    document.getElementById('clear-cart-btn').addEventListener('click', () => {
+      if (confirm('Clear all items from cart?')) {
+        localStorage.removeItem('tr_cart');
+        document.querySelectorAll('.cart-count').forEach(el => { el.textContent = '0'; el.classList.remove('visible'); });
+        renderCart();
+        window.showToast('Cart cleared', '', 'default', 'fa-trash');
+      }
+    });
+
+    renderCart();
+  </script>
+</body>
+
+</html>

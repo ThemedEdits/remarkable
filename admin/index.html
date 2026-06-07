@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — The Remarkable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <style>
+    body { background: var(--bg); }
+    #login-screen { display: flex; }
+    #admin-screen { display: none; }
+    .admin-screen-inner { display: flex; min-height: 100vh; }
+  </style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" style="min-height:100vh;align-items:center;justify-content:center;padding:24px;background:var(--bg);">
+  <div class="admin-login-card">
+    <div style="width:64px;height:64px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:1.5rem;color:var(--gold);">
+      <i class="fa-solid fa-shield-halved"></i>
+    </div>
+    <div class="admin-login-logo">The <span>Remarkable</span></div>
+    <div class="admin-login-sub">Admin Portal — Restricted Access</div>
+    <div class="admin-login-form">
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="login-email" placeholder="admin@theremarkable.pk" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div style="position:relative;">
+          <input type="password" class="form-input" id="login-password" placeholder="••••••••" required style="padding-right:44px;">
+          <button type="button" onclick="togglePw()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--text-dim);background:none;border:none;cursor:pointer;font-size:0.9rem;">
+            <i class="fa-regular fa-eye" id="pw-eye"></i>
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:16px;" onclick="handleLogin()">
+        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+      </button>
+      <div id="login-error" style="display:none;color:var(--red);font-size:0.82rem;text-align:center;padding:10px;background:rgba(224,82,82,0.1);border-radius:var(--radius);border:1px solid rgba(224,82,82,0.2);">
+        <i class="fa-solid fa-circle-xmark"></i> Invalid email or password.
+      </div>
+    </div>
+    <div style="margin-top:24px;text-align:center;">
+      <a href="../index.html" style="font-size:0.8rem;color:var(--text-dim);transition:color 0.2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-dim)'">
+        <i class="fa-solid fa-arrow-left"></i> Back to Store
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-screen">
+  <div class="admin-screen-inner">
+
+    <!-- SIDEBAR NAV -->
+    <nav class="admin-nav">
+      <div class="admin-nav-logo">The <span>Remarkable</span><br><small style="font-size:0.65rem;color:var(--text-dim);font-family:var(--ff-mono);letter-spacing:0.1em;">ADMIN PANEL</small></div>
+      <div class="admin-nav-link active" data-section="dashboard" onclick="showSection('dashboard')">
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
+      </div>
+      <div class="admin-nav-link" data-section="orders" onclick="showSection('orders')">
+        <i class="fa-solid fa-box"></i> Orders
+      </div>
+      <div class="admin-nav-link" data-section="pending" onclick="showSection('pending')">
+        <i class="fa-solid fa-clock"></i> Pending
+      </div>
+      <div class="admin-nav-link" style="margin-top:auto;border-top:1px solid var(--border);" onclick="handleLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="admin-content">
+
+      <!-- DASHBOARD SECTION -->
+      <div id="section-dashboard">
+        <div class="admin-header">
+          <h1 class="admin-title">Dashboard</h1>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="font-size:0.8rem;color:var(--text-muted);">
+              <i class="fa-solid fa-user-shield" style="color:var(--gold);margin-right:6px;"></i>
+              <span id="admin-email-display">admin</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="loadAllOrders()">
+              <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="admin-stats" id="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-icon"><i class="fa-solid fa-box"></i></div>
+            <div class="stat-card-num" id="stat-total">—</div>
+            <div class="stat-card-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background:rgba(201,168,76,0.1);"><i class="fa-solid fa-clock" style="color:var(--gold);"></i></div>
+            <div class="stat-card-num" id="stat-pending">—</div>
+            <div class="stat-card-label">Pending</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background:rgba(76,175,118,0.1);"><i class="fa-solid fa-circle-check" style="color:var(--green);"></i></div>
+            <div class="stat-card-num" id="stat-confirmed">—</div>
+            <div class="stat-card-label">Confirmed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background:rgba(100,149,237,0.1);"><i class="fa-solid fa-truck-fast" style="color:#6495ed;"></i></div>
+            <div class="stat-card-num" id="stat-revenue">—</div>
+            <div class="stat-card-label">Total Revenue</div>
+          </div>
+        </div>
+
+        <div class="orders-table-wrap">
+          <div class="orders-table-head">
+            <h3 class="orders-table-title">Recent Orders</h3>
+            <a href="#" onclick="showSection('orders')" style="font-size:0.8rem;color:var(--gold);">View All <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div id="recent-orders-container">
+            <div style="padding:40px;text-align:center;color:var(--text-muted);">
+              <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;color:var(--gold);"></i>
+              <p style="margin-top:12px;">Loading orders...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALL ORDERS SECTION -->
+      <div id="section-orders" style="display:none;">
+        <div class="admin-header">
+          <h1 class="admin-title">All Orders</h1>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <div style="position:relative;">
+              <input type="text" id="order-search" placeholder="Search orders..." class="form-input" style="padding-left:36px;min-width:200px;" oninput="filterOrders()">
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:0.8rem;pointer-events:none;"></i>
+            </div>
+            <div class="custom-select-wrap">
+              <select class="custom-select" id="status-filter" onchange="filterOrders()" style="min-width:160px;">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="delivered">Delivered</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="loadAllOrders()">
+              <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+          </div>
+        </div>
+        <div class="orders-table-wrap">
+          <div id="all-orders-container">
+            <div style="padding:40px;text-align:center;color:var(--text-muted);">
+              <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;color:var(--gold);"></i>
+              <p style="margin-top:12px;">Loading orders...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PENDING ORDERS SECTION -->
+      <div id="section-pending" style="display:none;">
+        <div class="admin-header">
+          <h1 class="admin-title">Pending Orders</h1>
+          <button class="btn btn-outline btn-sm" onclick="loadAllOrders()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        </div>
+        <div class="orders-table-wrap">
+          <div id="pending-orders-container">
+            <div style="padding:40px;text-align:center;color:var(--text-muted);">
+              <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;color:var(--gold);"></i>
+              <p style="margin-top:12px;">Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="order-detail-modal" id="order-modal">
+  <div class="order-detail-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <h3 style="font-family:var(--ff-display);font-size:1.4rem;font-weight:400;">Order Details</h3>
+      <button onclick="closeModal()" style="color:var(--text-muted);font-size:1.1rem;background:none;border:none;cursor:pointer;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script type="module">
+  import {
+    auth, db, getOrders, updateOrderStatus,
+    signInWithEmailAndPassword, signOut, onAuthStateChanged
+  } from '../js/firebase.js';
+
+  let allOrders = [];
+
+  // ── Auth ─────────────────────────────────────
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-screen').style.display = 'block';
+      document.getElementById('admin-email-display').textContent = user.email;
+      loadAllOrders();
+    } else {
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('admin-screen').style.display = 'none';
+    }
+  });
+
+  window.handleLogin = async () => {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    errEl.style.display = 'none';
+
+    if (!email || !password) {
+      errEl.style.display = 'block';
+      errEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Please enter email and password.';
+      return;
+    }
+
+    const btn = document.querySelector('#login-screen button.btn-primary');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+    }
+  };
+
+  window.handleLogout = async () => {
+    if (confirm('Sign out of admin panel?')) {
+      await signOut(auth);
+    }
+  };
+
+  window.togglePw = () => {
+    const input = document.getElementById('login-password');
+    const eye = document.getElementById('pw-eye');
+    if (input.type === 'password') {
+      input.type = 'text';
+      eye.className = 'fa-regular fa-eye-slash';
+    } else {
+      input.type = 'password';
+      eye.className = 'fa-regular fa-eye';
+    }
+  };
+
+  // Allow Enter key on login
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') {
+      window.handleLogin();
+    }
+  });
+
+  // ── Load Orders ───────────────────────────────
+  window.loadAllOrders = async () => {
+    allOrders = await getOrders();
+
+    // Stats
+    const total = allOrders.length;
+    const pending = allOrders.filter(o => o.status === 'pending').length;
+    const confirmed = allOrders.filter(o => o.status === 'confirmed').length;
+    const revenue = allOrders
+      .filter(o => o.status !== 'rejected')
+      .reduce((s,o) => s + (o.total || 0), 0);
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('stat-confirmed').textContent = confirmed;
+    document.getElementById('stat-revenue').textContent = `PKR ${revenue.toLocaleString()}`;
+
+    renderOrdersTable(allOrders.slice(0, 8), 'recent-orders-container');
+    renderOrdersTable(allOrders, 'all-orders-container');
+    renderOrdersTable(allOrders.filter(o => o.status === 'pending'), 'pending-orders-container');
+  };
+
+  function renderOrdersTable(orders, containerId) {
+    const container = document.getElementById(containerId);
+
+    if (!orders.length) {
+      container.innerHTML = `
+        <div style="padding:48px;text-align:center;color:var(--text-muted);">
+          <i class="fa-solid fa-inbox" style="font-size:2.5rem;color:var(--text-dim);margin-bottom:16px;display:block;"></i>
+          <p>No orders found.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = `
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>City</th>
+            <th>Items</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orders.map(order => {
+            const date = order.createdAt?.toDate
+              ? order.createdAt.toDate().toLocaleDateString('en-PK', {day:'2-digit',month:'short',year:'numeric'})
+              : 'Just now';
+            const statusMap = {
+              pending: 'status-pending',
+              confirmed: 'status-confirmed',
+              delivered: 'status-delivered',
+              rejected: 'status-rejected'
+            };
+            const statusIcons = {
+              pending: 'fa-clock', confirmed: 'fa-check', delivered: 'fa-truck', rejected: 'fa-xmark'
+            };
+            const shortId = `TR-${order.id.slice(-8).toUpperCase()}`;
+            return `
+            <tr>
+              <td>
+                <span style="font-family:var(--ff-mono);font-size:0.78rem;color:var(--gold);cursor:pointer;"
+                  onclick="viewOrderDetail('${order.id}')">
+                  ${shortId}
+                </span>
+              </td>
+              <td>
+                <div style="font-weight:400;">${order.customer?.name || '—'}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);">${order.customer?.phone || ''}</div>
+              </td>
+              <td style="color:var(--text-muted);font-size:0.84rem;">${order.customer?.city || '—'}</td>
+              <td style="font-family:var(--ff-mono);font-size:0.84rem;">
+                ${order.items?.length || 0} item${(order.items?.length||0)!==1?'s':''}
+              </td>
+              <td style="font-family:var(--ff-mono);font-weight:700;color:var(--text);">
+                PKR ${(order.total||0).toLocaleString()}
+              </td>
+              <td style="color:var(--text-muted);font-size:0.8rem;">${date}</td>
+              <td>
+                <span class="status-badge ${statusMap[order.status]||'status-pending'}">
+                  <i class="fa-solid ${statusIcons[order.status]||'fa-clock'}"></i>
+                  ${order.status?.charAt(0).toUpperCase() + order.status?.slice(1) || 'Pending'}
+                </span>
+              </td>
+              <td>
+                <div class="order-actions">
+                  <button class="order-action-btn btn-confirm"
+                    onclick="updateStatus('${order.id}','confirmed')"
+                    ${order.status==='confirmed'||order.status==='delivered'?'disabled style="opacity:0.4;"':''}>
+                    <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button class="order-action-btn btn-deliver"
+                    onclick="updateStatus('${order.id}','delivered')"
+                    ${order.status==='delivered'?'disabled style="opacity:0.4;"':''}>
+                    <i class="fa-solid fa-truck"></i>
+                  </button>
+                  <button class="order-action-btn btn-reject"
+                    onclick="updateStatus('${order.id}','rejected')"
+                    ${order.status==='rejected'?'disabled style="opacity:0.4;"':''}>
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                  <button class="order-action-btn" style="border-color:var(--text-dim);color:var(--text-muted);"
+                    onclick="viewOrderDetail('${order.id}')">
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+  }
+
+  // ── Update Status ─────────────────────────────
+  window.updateStatus = async (orderId, status) => {
+    const labels = { confirmed:'Confirm', delivered:'Mark Delivered', rejected:'Reject' };
+    if (!confirm(`${labels[status]} this order?`)) return;
+    try {
+      await updateOrderStatus(orderId, status);
+      showToast(`Order ${status}`, '', 'success', status==='rejected'?'fa-xmark':'fa-check-circle');
+      await loadAllOrders();
+    } catch (err) {
+      showToast('Update Failed', 'Please try again.', 'error', 'fa-circle-xmark');
+    }
+  };
+
+  // ── View Detail Modal ─────────────────────────
+  window.viewOrderDetail = (orderId) => {
+    const order = allOrders.find(o => o.id === orderId);
+    if (!order) return;
+    const shortId = `TR-${order.id.slice(-8).toUpperCase()}`;
+    const date = order.createdAt?.toDate
+      ? order.createdAt.toDate().toLocaleString('en-PK')
+      : 'Just now';
+
+    document.getElementById('modal-content').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+        <div>
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Order ID</div>
+          <div style="font-family:var(--ff-mono);font-size:0.9rem;">${shortId}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Date</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">${date}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Customer</div>
+          <div style="font-size:0.9rem;">${order.customer?.name}</div>
+        </div>
+        <div>
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Phone</div>
+          <div style="font-size:0.9rem;">${order.customer?.phone}</div>
+        </div>
+        <div style="grid-column:1/-1;">
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Delivery Address</div>
+          <div style="font-size:0.88rem;color:var(--text-muted);">${order.customer?.address}${order.customer?.area ? ', ' + order.customer.area : ''}, ${order.customer?.city}</div>
+        </div>
+        ${order.customer?.notes ? `
+        <div style="grid-column:1/-1;">
+          <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:6px;">Notes</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">${order.customer.notes}</div>
+        </div>` : ''}
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:20px;margin-bottom:20px;">
+        <div style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">Items Ordered</div>
+        ${(order.items || []).map(item => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);">
+            <div>
+              <div style="font-size:0.88rem;">${item.name}</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">${item.brand}${item.color?' · '+item.color:''} × ${item.qty}</div>
+            </div>
+            <div style="font-family:var(--ff-mono);font-size:0.88rem;font-weight:700;">PKR ${(item.price*item.qty).toLocaleString()}</div>
+          </div>`).join('')}
+        <div style="display:flex;justify-content:space-between;padding:16px 0 0;font-family:var(--ff-mono);font-size:1rem;font-weight:700;color:var(--gold);">
+          <span>Total</span>
+          <span>PKR ${(order.total||0).toLocaleString()}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        ${order.status !== 'confirmed' && order.status !== 'delivered' ? `
+        <button class="order-action-btn btn-confirm" onclick="updateStatus('${order.id}','confirmed');closeModal()">
+          <i class="fa-solid fa-check"></i> Confirm Order
+        </button>` : ''}
+        ${order.status !== 'delivered' ? `
+        <button class="order-action-btn btn-deliver" onclick="updateStatus('${order.id}','delivered');closeModal()">
+          <i class="fa-solid fa-truck"></i> Mark Delivered
+        </button>` : ''}
+        ${order.status !== 'rejected' ? `
+        <button class="order-action-btn btn-reject" onclick="updateStatus('${order.id}','rejected');closeModal()">
+          <i class="fa-solid fa-xmark"></i> Reject
+        </button>` : ''}
+        <a href="https://wa.me/${order.customer?.phone?.replace(/\D/g,'')}" target="_blank"
+           class="order-action-btn" style="border-color:#25D366;color:#25D366;text-decoration:none;">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>`;
+
+    document.getElementById('order-modal').classList.add('open');
+  };
+
+  window.closeModal = () => document.getElementById('order-modal').classList.remove('open');
+  document.getElementById('order-modal').addEventListener('click', e => { if (e.target === document.getElementById('order-modal')) window.closeModal(); });
+
+  // ── Section Nav ───────────────────────────────
+  window.showSection = (name) => {
+    document.querySelectorAll('[id^="section-"]').forEach(s => s.style.display = 'none');
+    document.getElementById('section-' + name).style.display = 'block';
+    document.querySelectorAll('.admin-nav-link').forEach(l => l.classList.remove('active'));
+    document.querySelector(`.admin-nav-link[data-section="${name}"]`)?.classList.add('active');
+  };
+
+  // ── Filter Orders ─────────────────────────────
+  window.filterOrders = () => {
+    const search = document.getElementById('order-search')?.value.toLowerCase() || '';
+    const status = document.getElementById('status-filter')?.value || '';
+    let filtered = allOrders;
+    if (status) filtered = filtered.filter(o => o.status === status);
+    if (search) filtered = filtered.filter(o =>
+      o.customer?.name?.toLowerCase().includes(search) ||
+      o.customer?.phone?.includes(search) ||
+      o.id.slice(-8).toLowerCase().includes(search) ||
+      o.customer?.city?.toLowerCase().includes(search)
+    );
+    renderOrdersTable(filtered, 'all-orders-container');
+  };
+
+  // ── Toast ─────────────────────────────────────
+  function showToast(title, subtitle, type, icon) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+      <i class="fa-solid ${icon} toast-icon"></i>
+      <div class="toast-text">
+        <div class="toast-title">${title}</div>
+        ${subtitle ? `<div class="toast-sub">${subtitle}</div>` : ''}
+      </div>`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => { requestAnimationFrame(() => toast.classList.add('show')); });
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
+  }
+  window.showToast = showToast;
+</script>
+</body>
+</html>

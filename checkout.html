@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — The Remarkable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div id="page-loader">
+    <div class="loader-inner">
+      <div class="loader-logo">The Remarkable</div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count"></span>
+        </a>
+        <button class="nav-icon-btn" data-cart title="Quick Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count"></span>
+        </button>
+        <div class="nav-hamburger" role="button" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQs</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="page-hero-inner">
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="cart.html">Cart</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Checkout</span>
+        </nav>
+        <h1 class="page-hero-title">Secure <span style="font-style:italic;color:var(--gold)">Checkout</span></h1>
+        <p class="page-hero-sub">Cash on Delivery — Pay when you receive your laptop</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS STATE -->
+  <div class="order-success container-sm" id="order-success">
+    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+    <h2 class="success-title">Order Placed!</h2>
+    <p class="success-sub">
+      Thank you for your order. Our team will call you within 2 hours to confirm delivery details.
+      You'll receive a WhatsApp message with your order tracking info.
+    </p>
+    <div class="order-id-badge">
+      <i class="fa-solid fa-hashtag"></i>
+      <span id="order-id-display">Loading...</span>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="shop.html" class="btn btn-primary btn-lg">
+        <i class="fa-solid fa-shop"></i> Continue Shopping
+      </a>
+      <a href="https://wa.me/923001234567" class="btn btn-outline btn-lg" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Contact Us on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- CHECKOUT FORM -->
+  <section class="checkout-section" id="checkout-form-section">
+    <div class="container">
+      <div class="checkout-grid">
+
+        <!-- FORM SIDE -->
+        <div class="checkout-form-area">
+
+          <!-- Contact Info -->
+          <div class="checkout-form-section">
+            <h2 class="checkout-form-title">
+              <i class="fa-solid fa-user"></i> Contact Information
+            </h2>
+            <div class="checkout-form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name *</label>
+                <input type="text" class="form-input" id="fname" placeholder="Muhammad" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name *</label>
+                <input type="text" class="form-input" id="lname" placeholder="Ali" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone / WhatsApp *</label>
+                <input type="tel" class="form-input" id="phone" placeholder="+92 300 0000000" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" id="email" placeholder="you@example.com">
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="checkout-form-section">
+            <h2 class="checkout-form-title">
+              <i class="fa-solid fa-location-dot"></i> Delivery Address
+            </h2>
+            <div class="checkout-form-grid">
+              <div class="form-group" style="grid-column:1/-1;">
+                <label class="form-label">Street Address *</label>
+                <input type="text" class="form-input" id="address" placeholder="House / Flat No., Street Name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">City *</label>
+                <div class="custom-select-wrap">
+                  <select class="form-input custom-select" id="city" required>
+                    <option value="">Select City</option>
+                    <option value="Karachi">Karachi</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Islamabad">Islamabad</option>
+                    <option value="Rawalpindi">Rawalpindi</option>
+                    <option value="Faisalabad">Faisalabad</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Peshawar">Peshawar</option>
+                    <option value="Quetta">Quetta</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Area / Locality</label>
+                <input type="text" class="form-input" id="area" placeholder="DHA, Gulshan, F-10...">
+              </div>
+              <div class="form-group" style="grid-column:1/-1;">
+                <label class="form-label">Delivery Notes (Optional)</label>
+                <textarea class="form-input" id="notes" rows="3"
+                  placeholder="Landmark, gate number, preferred delivery time..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="checkout-form-section">
+            <h2 class="checkout-form-title">
+              <i class="fa-solid fa-money-bill-wave"></i> Payment Method
+            </h2>
+            <div class="payment-method">
+              <i class="fa-solid fa-hand-holding-dollar"></i>
+              <div class="payment-method-text">
+                <div class="payment-method-name">Cash on Delivery (COD)</div>
+                <div class="payment-method-desc">Pay with cash when your laptop arrives at your door. No advance payment
+                  required for orders under PKR 400,000.</div>
+              </div>
+            </div>
+            <div
+              style="margin-top:16px;padding:14px 16px;background:rgba(76,175,118,0.08);border:1px solid rgba(76,175,118,0.2);border-radius:var(--radius);font-size:0.82rem;color:var(--green);display:flex;gap:10px;align-items:flex-start;">
+              <i class="fa-solid fa-circle-info" style="margin-top:2px;"></i>
+              <span>Our team will call you to confirm your order and arrange delivery. Please keep your phone
+                available.</span>
+            </div>
+          </div>
+
+          <button class="place-order-btn" id="place-order-btn" onclick="placeOrder()">
+            <i class="fa-solid fa-check-circle"></i>
+            Place Order — Cash on Delivery
+          </button>
+          <div class="secure-badge">
+            <i class="fa-solid fa-shield-check"></i>
+            <span>Your information is secure and never shared</span>
+          </div>
+        </div>
+
+        <!-- ORDER REVIEW SIDE -->
+        <div class="order-review">
+          <div class="order-review-title">
+            <i class="fa-solid fa-receipt" style="color:var(--gold);font-size:1rem;margin-right:8px;"></i>
+            Order Review
+          </div>
+          <div class="order-items" id="order-items-list"></div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:8px 0 16px;">
+          <div class="summary-row">
+            <span class="label" style="color:var(--text-muted)">Subtotal</span>
+            <span class="val" id="co-subtotal" style="font-family:var(--ff-mono);">PKR 0</span>
+          </div>
+          <div class="summary-row">
+            <span class="label" style="color:var(--text-muted)">Delivery</span>
+            <span class="val" id="co-delivery" style="font-family:var(--ff-mono);">Free</span>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:8px 0 16px;">
+          <div class="summary-row summary-total">
+            <span class="label" style="font-weight:500;">Total</span>
+            <span class="val" id="co-total" style="font-size:1.2rem;font-weight:700;color:var(--gold);">PKR 0</span>
+          </div>
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+            <div
+              style="font-family:var(--ff-mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--text-dim);margin-bottom:12px;text-transform:uppercase;">
+              Why Shop With Us</div>
+            ${[
+            ['fa-certificate','100% Authentic Products'],
+            ['fa-shield-halved','Secure Transaction'],
+            ['fa-rotate-left','7-Day Easy Returns'],
+            ['fa-headset','24/7 Customer Support']
+            ].map(([icon,text]) => `
+            <div
+              style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:0.82rem;color:var(--text-muted);">
+              <i class="fa-solid ${icon}" style="color:var(--gold);width:16px;text-align:center;"></i>
+              ${text}
+            </div>`).join('')}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:60px;">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 The Remarkable. All rights reserved.
+        </span>
+        <span>Made with <i class="fa-solid fa-heart" style="color:var(--red)"></i> in Pakistan</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923001234567?text=Hello!" id="whatsapp-btn" target="_blank"><i
+      class="fa-brands fa-whatsapp"></i></a>
+  <div id="toast-container"></div>
+
+  <script type="module">
+    import { saveOrder } from './js/firebase.js';
+    import './js/main.js';
+
+    function getCart() { return JSON.parse(localStorage.getItem('tr_cart') || '[]'); }
+
+    function renderOrderReview() {
+      const cart = getCart();
+      const list = document.getElementById('order-items-list');
+
+      if (!cart.length) {
+        window.location.href = 'cart.html';
+        return;
+      }
+
+      list.innerHTML = cart.map(item => `
+      <div class="order-item">
+        <img class="order-item-img" src="${item.image}" alt="${item.name}"
+          onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=60'">
+        <div class="order-item-info">
+          <div class="order-item-name">${item.name}</div>
+          <div class="order-item-qty">${item.brand}${item.color ? ' · ' + item.color : ''} × ${item.qty}</div>
+        </div>
+        <div class="order-item-price">PKR ${(item.price * item.qty).toLocaleString()}</div>
+      </div>`).join('');
+
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const delivery = subtotal >= 50000 ? 0 : 500;
+      const total = subtotal + delivery;
+
+      document.getElementById('co-subtotal').textContent = `PKR ${subtotal.toLocaleString()}`;
+      document.getElementById('co-delivery').textContent = delivery === 0 ? 'Free' : `PKR ${delivery.toLocaleString()}`;
+      document.getElementById('co-total').textContent = `PKR ${total.toLocaleString()}`;
+    }
+
+    window.placeOrder = async () => {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const city = document.getElementById('city').value;
+
+      if (!fname || !lname || !phone || !address || !city) {
+        window.showToast('Missing Fields', 'Please fill in all required fields.', 'error', 'fa-circle-xmark');
+        // highlight empties
+        [
+          { id: 'fname', val: fname },
+          { id: 'lname', val: lname },
+          { id: 'phone', val: phone },
+          { id: 'address', val: address },
+          { id: 'city', val: city }
+        ].forEach(({ id, val }) => {
+          const el = document.getElementById(id);
+          if (!val) { el.style.borderColor = 'var(--red)'; setTimeout(() => el.style.borderColor = '', 2000); }
+        });
+        return;
+      }
+
+      const cart = getCart();
+      if (!cart.length) { window.showToast('Cart is empty', '', 'error', 'fa-cart-shopping'); return; }
+
+      const btn = document.getElementById('place-order-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Placing Order...';
+
+      const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const delivery = subtotal >= 50000 ? 0 : 500;
+      const total = subtotal + delivery;
+
+      const orderData = {
+        customer: {
+          name: `${fname} ${lname}`,
+          phone,
+          email: document.getElementById('email').value.trim(),
+          address,
+          area: document.getElementById('area').value.trim(),
+          city,
+          notes: document.getElementById('notes').value.trim()
+        },
+        items: cart,
+        subtotal,
+        delivery,
+        total,
+        paymentMethod: 'COD'
+      };
+
+      try {
+        const orderId = await saveOrder(orderData);
+
+        // Clear cart
+        localStorage.removeItem('tr_cart');
+        document.querySelectorAll('.cart-count').forEach(el => { el.textContent = '0'; el.classList.remove('visible'); });
+
+        // Show success
+        document.getElementById('checkout-form-section').style.display = 'none';
+        const successEl = document.getElementById('order-success');
+        successEl.classList.add('show');
+        document.getElementById('order-id-display').textContent = `Order #TR-${orderId.slice(-8).toUpperCase()}`;
+
+        window.showToast('Order Placed!', 'We\'ll call you to confirm soon.', 'success', 'fa-check-circle');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-check-circle"></i> Place Order — Cash on Delivery';
+        window.showToast('Order Failed', 'Please try again or contact us on WhatsApp.', 'error', 'fa-circle-xmark');
+      }
+    };
+
+    renderOrderReview();
+  </script>
+</body>
+
+</html>

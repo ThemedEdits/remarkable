@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — The Remarkable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div id="page-loader">
+    <div class="loader-inner">
+      <div class="loader-logo">The Remarkable</div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count"></span>
+        </a>
+        <button class="nav-icon-btn" data-cart title="Quick Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count"></span>
+        </button>
+        <div class="nav-hamburger"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+  <div id="cart-overlay">
+    <div id="cart-drawer">
+      <div class="cart-drawer-head">
+        <h2 class="cart-drawer-title">Your Cart</h2>
+        <button class="cart-drawer-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-drawer-body"></div>
+      <div class="cart-drawer-foot">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-val">PKR 0</span>
+        </div>
+        <p class="cart-note"><i class="fa-solid fa-truck"></i> Free delivery on orders above PKR 50,000</p>
+        <a href="checkout.html" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+        <a href="cart.html" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:8px;">View
+          Full Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT CONTENT injected by JS -->
+  <div id="product-page-content"></div>
+
+
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">The <span>Remarkable</span></div>
+          <p class="footer-desc">Pakistan's premier destination for premium laptops.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/923001234567" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="shop.html?cat=business">Business</a></li>
+            <li><a href="shop.html?cat=gaming">Gaming</a></li>
+            <li><a href="shop.html?cat=ultrabook">Ultrabooks</a></li>
+            <li><a href="shop.html?cat=creator">Creator</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>hello@theremarkable.pk</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 The Remarkable. All rights reserved.
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923001234567?text=Hello!%20I%20need%20help%20with%20a%20laptop." id="whatsapp-btn"
+    target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <button id="scroll-top"><i class="fa-solid fa-chevron-up"></i></button>
+  <div id="toast-container"></div>
+
+  <script type="module">
+    import { PRODUCTS, getProductById } from './js/firebase.js';
+    import './js/main.js';
+
+    window.PRODUCTS_DATA = PRODUCTS;
+
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+    const product = productId ? getProductById(productId) : null;
+
+    if (!product) {
+      document.getElementById('product-page-content').innerHTML = `
+      <div style="text-align:center;padding:120px 24px;">
+        <i class="fa-solid fa-laptop-slash" style="font-size:4rem;color:var(--text-dim);margin-bottom:24px;display:block;"></i>
+        <h2 style="font-family:var(--ff-display);font-size:2rem;margin-bottom:12px;">Product Not Found</h2>
+        <p style="color:var(--text-muted);margin-bottom:32px;">This product doesn't exist or has been removed.</p>
+        <a href="shop.html" class="btn btn-primary"><i class="fa-solid fa-shop"></i> Back to Shop</a>
+      </div>`;
+    } else {
+      document.title = `${product.name} — The Remarkable`;
+
+      const starsHTML = (r) => {
+        let s = '';
+        for (let i = 1; i <= 5; i++) {
+          s += i <= Math.floor(r)
+            ? '<i class="fa-solid fa-star"></i>'
+            : i - r < 1 ? '<i class="fa-regular fa-star-half-stroke"></i>'
+              : '<i class="fa-regular fa-star"></i>';
+        }
+        return s;
+      };
+
+      const colorsHTML = product.colors.map(c =>
+        `<div class="color-opt" data-color="${c}">${c}</div>`).join('');
+
+      const specsHTML = Object.entries(product.specs).map(([k, v]) =>
+        `<tr><td>${k}</td><td>${v}</td></tr>`).join('');
+
+      const oldPriceHTML = product.oldPrice
+        ? `<span class="product-detail-old">PKR ${product.oldPrice.toLocaleString()}</span>
+         <span class="product-detail-save">Save PKR ${(product.oldPrice - product.price).toLocaleString()}</span>`
+        : '';
+
+      const thumbsHTML = product.images.map((img, i) =>
+        `<div class="gallery-thumb ${i === 0 ? 'active' : ''}" data-img="${img}" data-index="${i}">
+        <img src="${img}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&q=60'">
+      </div>`).join('');
+
+      document.getElementById('product-page-content').innerHTML = `
+    <div style="padding-top:var(--nav-h);">
+      <div class="container" style="padding-top:24px;">
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="shop.html">Shop</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="shop.html?cat=${product.category}">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>${product.name}</span>
+        </nav>
+      </div>
+    </div>
+
+    <section class="product-detail-section">
+      <div class="container">
+        <div class="product-detail-grid">
+
+          <!-- GALLERY -->
+          <div class="product-gallery reveal reveal-left">
+            <div class="gallery-main">
+              <img id="main-img" src="${product.images[0]}" alt="${product.name}"
+                onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&q=80'">
+            </div>
+            <div class="gallery-thumbs">${thumbsHTML}</div>
+          </div>
+
+          <!-- INFO -->
+          <div class="product-detail-info reveal reveal-right">
+            <div class="product-detail-brand">${product.brand}</div>
+            <h1 class="product-detail-name">${product.name}</h1>
+            <div class="product-detail-rating">
+              <div class="stars">${starsHTML(product.rating)}</div>
+              <span class="count">${product.rating} (${product.reviews} reviews)</span>
+            </div>
+
+            <div class="product-detail-price-row">
+              <div class="product-detail-price">PKR ${product.price.toLocaleString()}</div>
+              ${oldPriceHTML}
+            </div>
+
+            <p class="product-short-desc">${product.shortDesc}</p>
+
+            ${product.colors.length > 1 ? `
+            <div class="product-options">
+              <div class="option-label">Color / Variant: <span id="selected-color" style="color:var(--text)">${product.colors[0]}</span></div>
+              <div class="color-options">${colorsHTML}</div>
+            </div>` : ''}
+
+            <div class="quantity-row">
+              <div class="option-label">Quantity:</div>
+              <div class="qty-control">
+                <button class="qty-btn" id="qty-minus"><i class="fa-solid fa-minus"></i></button>
+                <span class="qty-num" id="qty-display">1</span>
+                <button class="qty-btn" id="qty-plus"><i class="fa-solid fa-plus"></i></button>
+              </div>
+            </div>
+
+            <div class="detail-actions">
+              <button class="btn btn-primary btn-lg" id="detail-atc" ${!product.inStock ? 'disabled' : ''}>
+                <i class="fa-solid fa-cart-plus"></i>
+                ${product.inStock ? 'Add to Cart' : 'Out of Stock'}
+              </button>
+              <a href="checkout.html" class="btn btn-outline btn-lg" id="buy-now-btn" ${!product.inStock ? 'style="pointer-events:none;opacity:0.4;"' : ''}>
+                <i class="fa-solid fa-bolt"></i> Buy Now
+              </a>
+              <button class="wish-btn" id="wish-btn" title="Wishlist">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
+
+            <div class="product-shipping-badge">
+              <i class="fa-solid fa-truck-fast"></i>
+              <span>Free delivery in Karachi · Next-day Pakistan-wide</span>
+            </div>
+
+            <div class="product-meta">
+              <div class="product-meta-item">
+                <strong>SKU:</strong><span>TR-${product.id.toUpperCase()}</span>
+              </div>
+              <div class="product-meta-item">
+                <strong>Category:</strong><span>${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</span>
+              </div>
+              <div class="product-meta-item">
+                <strong>Status:</strong>
+                <span style="color:${product.inStock ? 'var(--green)' : 'var(--red)'}">
+                  ${product.inStock ? '<i class="fa-solid fa-circle-check"></i> In Stock' : '<i class="fa-solid fa-circle-xmark"></i> Out of Stock'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <section class="product-tabs-section">
+      <div class="container">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="description">Description</button>
+          <button class="tab-btn" data-tab="specs">Specifications</button>
+          <button class="tab-btn" data-tab="reviews">Reviews (${product.reviews})</button>
+          <button class="tab-btn" data-tab="shipping">Shipping & Returns</button>
+        </div>
+        <div class="tab-panel active" id="tab-description">
+          <p style="font-size:0.92rem;color:var(--text-muted);line-height:1.9;max-width:720px;">${product.description}</p>
+        </div>
+        <div class="tab-panel" id="tab-specs">
+          <table class="specs-table">
+            <tbody>${specsHTML}</tbody>
+          </table>
+        </div>
+        <div class="tab-panel" id="tab-reviews">
+          <div style="display:flex;align-items:center;gap:24px;margin-bottom:40px;padding:24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);">
+            <div style="text-align:center;">
+              <div style="font-family:var(--ff-display);font-size:4rem;font-weight:300;color:var(--text);line-height:1;">${product.rating}</div>
+              <div style="display:flex;gap:3px;justify-content:center;margin:6px 0;">${starsHTML(product.rating)}</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">${product.reviews} reviews</div>
+            </div>
+            <div style="flex:1;border-left:1px solid var(--border);padding-left:24px;">
+              ${[5, 4, 3, 2, 1].map(s => `
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                  <span style="font-size:0.78rem;color:var(--text-muted);width:20px;">${s}</span>
+                  <i class="fa-solid fa-star" style="color:var(--gold);font-size:0.75rem;"></i>
+                  <div style="flex:1;height:6px;background:var(--surface);border-radius:3px;overflow:hidden;">
+                    <div style="height:100%;background:var(--gold);width:${s === 5 ? '72' : s === 4 ? '18' : s === 3 ? '6' : s === 2 ? '3' : '1'}%;border-radius:3px;"></div>
+                  </div>
+                </div>`).join('')}
+            </div>
+          </div>
+          <p style="color:var(--text-muted);font-size:0.88rem;text-align:center;padding:20px 0;">
+            <i class="fa-solid fa-comment-dots" style="margin-right:8px;color:var(--gold);"></i>
+            Verified purchase reviews displayed in-store. Contact us on WhatsApp for testimonials.
+          </p>
+        </div>
+        <div class="tab-panel" id="tab-shipping">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+            ${[
+          ['fa-truck-fast', 'Fast Delivery', 'Same-day in Karachi. Next-day to Lahore, Islamabad. 2–3 days nationwide.'],
+          ['fa-shield-halved', 'Fully Insured', 'All orders are insured end-to-end. Lost or damaged? We replace immediately.'],
+          ['fa-rotate-left', '7-Day Returns', 'Not satisfied? Return within 7 days in original condition for a full refund.'],
+          ['fa-box-open', 'Secure Packaging', 'Every laptop is individually packed in anti-static foam with impact protection.']
+        ].map(([icon, title, text]) => `
+              <div style="padding:24px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);">
+                <i class="fa-solid ${icon}" style="color:var(--gold);font-size:1.3rem;margin-bottom:12px;display:block;"></i>
+                <h4 style="font-family:var(--ff-display);font-size:1.05rem;margin-bottom:8px;">${title}</h4>
+                <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.7;">${text}</p>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </section>`;
+
+      // Gallery interaction
+      let qty = 1;
+      let selectedColor = product.colors[0] || '';
+
+      document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          const img = thumb.dataset.img;
+          document.getElementById('main-img').src = img;
+          document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+        });
+      });
+
+      // Color options
+      document.querySelectorAll('.color-opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.color-opt').forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          selectedColor = opt.dataset.color;
+          const lbl = document.getElementById('selected-color');
+          if (lbl) lbl.textContent = selectedColor;
+        });
+      });
+      if (document.querySelector('.color-opt')) document.querySelector('.color-opt').classList.add('active');
+
+      // Qty
+      document.getElementById('qty-minus')?.addEventListener('click', () => {
+        if (qty > 1) { qty--; document.getElementById('qty-display').textContent = qty; }
+      });
+      document.getElementById('qty-plus')?.addEventListener('click', () => {
+        qty++;
+        document.getElementById('qty-display').textContent = qty;
+      });
+
+      // Wishlist
+      document.getElementById('wish-btn')?.addEventListener('click', () => {
+        const btn = document.getElementById('wish-btn');
+        btn.classList.toggle('active');
+        const icon = btn.querySelector('i');
+        if (btn.classList.contains('active')) {
+          icon.className = 'fa-solid fa-heart';
+          window.showToast('Added to Wishlist', product.name, 'success', 'fa-heart');
+        } else {
+          icon.className = 'fa-regular fa-heart';
+        }
+      });
+
+      // ATC
+      document.getElementById('detail-atc')?.addEventListener('click', () => {
+        if (!product.inStock) return;
+        const btn = document.getElementById('detail-atc');
+        btn.classList.add('adding');
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Added!';
+        setTimeout(() => {
+          btn.classList.remove('adding');
+          btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Add to Cart';
+        }, 1200);
+
+        const cart = JSON.parse(localStorage.getItem('tr_cart') || '[]');
+        const ex = cart.find(i => i.id === product.id && i.color === selectedColor);
+        if (ex) { ex.qty += qty; } else {
+          cart.push({
+            id: product.id, name: product.name, brand: product.brand,
+            price: product.price, image: product.images[0], color: selectedColor, qty
+          });
+        }
+        localStorage.setItem('tr_cart', JSON.stringify(cart));
+        const count = cart.reduce((s, i) => s + i.qty, 0);
+        document.querySelectorAll('.cart-count').forEach(el => {
+          el.textContent = count; el.classList.add('visible', 'bump');
+          setTimeout(() => el.classList.remove('bump'), 400);
+        });
+        window.showToast('Added to Cart', `${product.name} × ${qty}`, 'success', 'fa-cart-shopping');
+      });
+
+      // Buy now — add to cart then redirect
+      document.getElementById('buy-now-btn')?.addEventListener('click', (e) => {
+        if (!product.inStock) return;
+        e.preventDefault();
+        const cart = JSON.parse(localStorage.getItem('tr_cart') || '[]');
+        const ex = cart.find(i => i.id === product.id && i.color === selectedColor);
+        if (ex) { ex.qty += qty; } else {
+          cart.push({
+            id: product.id, name: product.name, brand: product.brand,
+            price: product.price, image: product.images[0], color: selectedColor, qty
+          });
+        }
+        localStorage.setItem('tr_cart', JSON.stringify(cart));
+        window.location.href = 'checkout.html';
+      });
+
+      // Tabs
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+      });
+
+    }
+  </script>
+</body>
+
+</html>

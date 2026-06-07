@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — The Remarkable</title>
+  <meta name="description" content="Browse our full collection of premium laptops.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div id="page-loader">
+    <div class="loader-inner">
+      <div class="loader-logo">The Remarkable</div>
+      <div class="loader-bar"></div>
+    </div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">The <span>Remarkable</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#faq">FAQs</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="nav-icon-btn" title="Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count"></span>
+        </a>
+        <button class="nav-icon-btn" data-cart title="Quick Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count"></span>
+        </button>
+        <div class="nav-hamburger" role="button" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#faq">FAQs</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+  <div id="cart-overlay">
+    <div id="cart-drawer">
+      <div class="cart-drawer-head">
+        <h2 class="cart-drawer-title">Your Cart</h2>
+        <button class="cart-drawer-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-drawer-body"></div>
+      <div class="cart-drawer-foot">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-val">PKR 0</span>
+        </div>
+        <p class="cart-note"><i class="fa-solid fa-truck"></i> Free delivery on orders above PKR 50,000</p>
+        <a href="checkout.html" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+        <a href="cart.html" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;margin-top:8px;">View
+          Full Cart</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+      <div class="page-hero-inner">
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Shop</span>
+        </nav>
+        <h1 class="page-hero-title">Our <span style="font-style:italic;color:var(--gold)">Collection</span></h1>
+        <p class="page-hero-sub">Handpicked premium laptops for every need and budget</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP LAYOUT -->
+  <section class="shop-layout">
+    <div class="container">
+      <div class="shop-inner">
+
+        <!-- SIDEBAR -->
+        <aside class="shop-sidebar">
+          <div class="sidebar-block">
+            <div class="sidebar-title">
+              <span><i class="fa-solid fa-sliders"></i> Filters</span>
+              <span class="sidebar-clear" id="clear-filters">Clear All</span>
+            </div>
+
+            <div style="margin-bottom:24px;">
+              <div
+                style="font-family:var(--ff-mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+                Search</div>
+              <div style="position:relative;">
+                <input type="text" id="search-input" class="form-input" placeholder="Search laptops..."
+                  style="padding-left:36px;">
+                <i class="fa-solid fa-magnifying-glass"
+                  style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-dim);font-size:0.8rem;pointer-events:none;"></i>
+              </div>
+            </div>
+
+            <div style="margin-bottom:24px;">
+              <div
+                style="font-family:var(--ff-mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+                Category</div>
+              <div class="filter-list" id="category-filters">
+                <label class="filter-check"><input type="checkbox" value="business">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span
+                    class="check-label">Business</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="gaming">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">Gaming</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="ultrabook">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span
+                    class="check-label">Ultrabooks</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="creator">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">Creator</span>
+                </label>
+              </div>
+            </div>
+
+            <div style="margin-bottom:24px;">
+              <div
+                style="font-family:var(--ff-mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+                Brand</div>
+              <div class="filter-list" id="brand-filters">
+                <label class="filter-check"><input type="checkbox" value="Apple">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">Apple</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="ASUS">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">ASUS</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="Dell">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">Dell</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="HP">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">HP</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="Lenovo">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">Lenovo</span>
+                </label>
+                <label class="filter-check"><input type="checkbox" value="Microsoft">
+                  <div class="check-box"><i class="fa-solid fa-check"></i></div><span
+                    class="check-label">Microsoft</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <div
+                style="font-family:var(--ff-mono);font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+                Price Range (PKR)</div>
+              <div class="price-range-inputs">
+                <input type="number" class="price-range-input" id="price-min" placeholder="Min" min="0">
+                <span class="price-range-sep">—</span>
+                <input type="number" class="price-range-input" id="price-max" placeholder="Max" max="9999999">
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-block">
+            <div class="sidebar-title"><span><i class="fa-solid fa-tag"></i> Availability</span></div>
+            <div class="filter-list">
+              <label class="filter-check"><input type="checkbox" id="in-stock-filter">
+                <div class="check-box"><i class="fa-solid fa-check"></i></div><span class="check-label">In Stock
+                  Only</span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="shop-main">
+          <div class="shop-toolbar">
+            <div class="shop-count">Showing <span id="product-count">0</span> laptops</div>
+            <div class="toolbar-right">
+              <div class="custom-select-wrap sort-wrap">
+                <select class="custom-select" id="sort-select">
+                  <option value="default">Default</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="name-asc">Name: A–Z</option>
+                  <option value="rating">Top Rated</option>
+                </select>
+              </div>
+              <div class="view-toggle">
+                <button class="view-btn active" id="grid-view-btn" title="Grid View"><i
+                    class="fa-solid fa-grip-vertical"></i></button>
+                <button class="view-btn" id="list-view-btn" title="List View"><i class="fa-solid fa-list"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="shop-grid" id="products-grid">
+            <!-- Injected by JS -->
+          </div>
+
+          <div id="no-results" style="display:none;text-align:center;padding:80px 0;">
+            <i class="fa-solid fa-laptop-slash"
+              style="font-size:3rem;color:var(--text-dim);margin-bottom:16px;display:block;"></i>
+            <p style="color:var(--text-muted);">No laptops match your filters. <button onclick="clearFilters()"
+                style="color:var(--gold);background:none;border:none;cursor:pointer;font-family:inherit;">Clear
+                filters</button></p>
+          </div>
+
+          <div class="shop-pagination" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">The <span>Remarkable</span></div>
+          <p class="footer-desc">Pakistan's premier destination for premium laptops.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/923001234567" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="cart.html">My Cart</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="shop.html?cat=business">Business</a></li>
+            <li><a href="shop.html?cat=gaming">Gaming</a></li>
+            <li><a href="shop.html?cat=ultrabook">Ultrabooks</a></li>
+            <li><a href="shop.html?cat=creator">Creator</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>hello@theremarkable.pk</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 The Remarkable. All rights reserved.
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923001234567?text=Hello!%20I%20need%20help%20with%20a%20laptop." id="whatsapp-btn"
+    target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <button id="scroll-top"><i class="fa-solid fa-chevron-up"></i></button>
+  <div id="toast-container"></div>
+
+  <script type="module">
+    import { PRODUCTS } from './js/firebase.js';
+    import './js/main.js';
+
+    window.PRODUCTS_DATA = PRODUCTS;
+
+    const ITEMS_PER_PAGE = 6;
+    let currentPage = 1;
+    let filtered = [...PRODUCTS];
+
+    // Read URL params for initial category filter
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCat = urlParams.get('cat');
+    if (urlCat) {
+      const cb = document.querySelector(`#category-filters input[value="${urlCat}"]`);
+      if (cb) cb.checked = true;
+    }
+
+    function getFilters() {
+      const cats = [...document.querySelectorAll('#category-filters input:checked')].map(i => i.value);
+      const brands = [...document.querySelectorAll('#brand-filters input:checked')].map(i => i.value);
+      const minP = parseFloat(document.getElementById('price-min').value) || 0;
+      const maxP = parseFloat(document.getElementById('price-max').value) || Infinity;
+      const inStockOnly = document.getElementById('in-stock-filter').checked;
+      const search = document.getElementById('search-input').value.trim().toLowerCase();
+      const sort = document.getElementById('sort-select').value;
+      return { cats, brands, minP, maxP, inStockOnly, search, sort };
+    }
+
+    function applyFilters() {
+      const { cats, brands, minP, maxP, inStockOnly, search, sort } = getFilters();
+      filtered = PRODUCTS.filter(p => {
+        if (cats.length && !cats.includes(p.category)) return false;
+        if (brands.length && !brands.includes(p.brand)) return false;
+        if (p.price < minP || p.price > maxP) return false;
+        if (inStockOnly && !p.inStock) return false;
+        if (search && !p.name.toLowerCase().includes(search) &&
+          !p.brand.toLowerCase().includes(search) &&
+          !p.category.toLowerCase().includes(search)) return false;
+        return true;
+      });
+
+      if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+      else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+      else if (sort === 'name-asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
+      else if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+      currentPage = 1;
+      renderProducts();
+      renderPagination();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('products-grid');
+      const noRes = document.getElementById('no-results');
+      const countEl = document.getElementById('product-count');
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+      countEl.textContent = filtered.length;
+
+      if (!filtered.length) {
+        grid.innerHTML = '';
+        noRes.style.display = 'block';
+        return;
+      }
+      noRes.style.display = 'none';
+
+      grid.innerHTML = paginated.map((p, i) => {
+        const badgeHTML = p.badge ? `<div class="product-badge ${p.badge}">${p.badge}</div>` : '';
+        const specItems = Object.entries(p.specs).slice(0, 3).map(([k, v]) =>
+          `<span><i class="fa-solid fa-circle-dot"></i>${v}</span>`).join('');
+        const oldHTML = p.oldPrice ? `<span class="price-old">PKR ${p.oldPrice.toLocaleString()}</span>` : '';
+        const stockBadge = !p.inStock ? `<div class="product-badge" style="background:var(--text-dim)">Out of Stock</div>` : '';
+        return `
+      <div class="product-card reveal" style="transition-delay:${i * 0.07}s" data-product-id="${p.id}">
+        <a href="product.html?id=${p.id}">
+          <div class="product-img-wrap">
+            ${badgeHTML}${stockBadge}
+            <img src="${p.images[0]}" alt="${p.name}" loading="lazy"
+              onerror="this.src='https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80'">
+            <div class="product-actions-overlay">
+              <a href="product.html?id=${p.id}" class="btn btn-outline btn-sm" style="flex:1">
+                <i class="fa-solid fa-eye"></i> View Details
+              </a>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-brand">${p.brand}</div>
+            <h3 class="product-name">${p.name}</h3>
+            <div class="product-specs">${specItems}</div>
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-current">PKR ${p.price.toLocaleString()}</span>
+                ${oldHTML}
+              </div>
+              <button class="add-to-cart-btn shop-atc" data-product-id="${p.id}"
+                ${!p.inStock ? 'disabled title="Out of Stock"' : 'title="Add to Cart"'}>
+                <i class="fa-solid ${p.inStock ? 'fa-cart-plus' : 'fa-ban'}"></i>
+              </button>
+            </div>
+          </div>
+        </a>
+      </div>`;
+      }).join('');
+
+      // Reveal
+      setTimeout(() => {
+        document.querySelectorAll('.product-card.reveal').forEach(el => el.classList.add('visible'));
+      }, 50);
+
+      // Use shared ATC handler (dedup-guarded)
+      window.initATCButtons(PRODUCTS);
+    }
+
+    function renderPagination() {
+      const pg = document.getElementById('pagination');
+      const total = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+      if (total <= 1) { pg.innerHTML = ''; return; }
+      let html = '';
+      if (currentPage > 1) html += `<button class="page-btn" onclick="gotoPage(${currentPage - 1})"><i class="fa-solid fa-chevron-left"></i></button>`;
+      for (let i = 1; i <= total; i++) {
+        html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="gotoPage(${i})">${i}</button>`;
+      }
+      if (currentPage < total) html += `<button class="page-btn" onclick="gotoPage(${currentPage + 1})"><i class="fa-solid fa-chevron-right"></i></button>`;
+      pg.innerHTML = html;
+    }
+
+    window.gotoPage = (n) => {
+      currentPage = n;
+      renderProducts();
+      renderPagination();
+      window.scrollTo({ top: document.querySelector('.shop-layout').offsetTop - 80, behavior: 'smooth' });
+    };
+
+    window.clearFilters = () => {
+      document.querySelectorAll('#category-filters input, #brand-filters input').forEach(cb => cb.checked = false);
+      document.getElementById('in-stock-filter').checked = false;
+      document.getElementById('price-min').value = '';
+      document.getElementById('price-max').value = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('sort-select').value = 'default';
+      document.getElementById('clear-filters').dispatchEvent(new Event('click'));
+      applyFilters();
+    };
+
+    // View toggle
+    document.getElementById('grid-view-btn').addEventListener('click', () => {
+      document.getElementById('products-grid').classList.remove('list-view');
+      document.getElementById('grid-view-btn').classList.add('active');
+      document.getElementById('list-view-btn').classList.remove('active');
+    });
+    document.getElementById('list-view-btn').addEventListener('click', () => {
+      document.getElementById('products-grid').classList.add('list-view');
+      document.getElementById('list-view-btn').classList.add('active');
+      document.getElementById('grid-view-btn').classList.remove('active');
+    });
+
+    // Filter events
+    document.querySelectorAll('#category-filters input, #brand-filters input, #in-stock-filter').forEach(el => {
+      el.addEventListener('change', applyFilters);
+    });
+    document.getElementById('sort-select').addEventListener('change', applyFilters);
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+    document.getElementById('price-min').addEventListener('input', applyFilters);
+    document.getElementById('price-max').addEventListener('input', applyFilters);
+    document.getElementById('clear-filters').addEventListener('click', window.clearFilters);
+
+    applyFilters();
+  </script>
+</body>
+
+</html>
