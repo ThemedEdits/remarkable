@@ -37,6 +37,27 @@
   --nav-h: 72px;
 }
 
+body[data-theme="light"] {
+  --bg: #f5f5f4;
+  --bg2: #ffffff;
+  --bg3: #f3f4f6;
+  --surface: #ffffff;
+  --border: rgba(15, 23, 42, 0.08);
+  --border-light: rgba(15, 23, 42, 0.12);
+  --gold: #b2873c;
+  --gold-light: #d3b367;
+  --gold-dark: #8a6c34;
+  --text: #1f2937;
+  --text-muted: #4b5563;
+  --text-dim: #6b7280;
+  --white: #111827;
+  --red: #c0392b;
+  --green: #2f855a;
+  --shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 18px 72px rgba(15, 23, 42, 0.1);
+  color-scheme: light;
+}
+
 /* ── Reset ── */
 *,
 *::before,
@@ -82,6 +103,113 @@ button {
   background: none;
   font-family: inherit;
 }
+
+/* --- Modern Theme Toggle Container --- */
+.theme-toggle-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  /* border: 1px solid rgba(0, 0, 0, 0.08); */
+  /* background: rgba(255, 255, 255, 0.6); */
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+
+/* --- The Morphing Animated Icon --- */
+.theme-toggle-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* The central body of the Sun / Moon */
+.sun-core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f59e0b;
+  /* Golden Sun color */
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The radial Sun rays */
+.sun-ray {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 4px;
+  background: #f59e0b;
+  border-radius: 1px;
+  transform-origin: center center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Distribute 8 rays symmetrically around the core */
+.sun-ray:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(45deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(90deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(135deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(7) {
+  transform: translate(-50%, -50%) rotate(225deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(8) {
+  transform: translate(-50%, -50%) rotate(270deg) translateY(-11px);
+}
+
+.sun-ray:nth-child(9) {
+  transform: translate(-50%, -50%) rotate(315deg) translateY(-11px);
+}
+
+
+
+/* Spin the whole asset container on click */
+[data-theme="dark"] .theme-toggle-icon {
+  transform: rotate(45deg);
+}
+
+/* Transform the Sun core into a crescent Moon using a box shadow mask */
+[data-theme="dark"] .sun-core {
+  background: transparent;
+  box-shadow: inset -6px -4px 0 0 #e2e8f0;
+  /* Crisp white crescent shape */
+}
+
+/* Shrink and dissolve the rays away into the core */
+[data-theme="dark"] .sun-ray {
+  opacity: 0;
+  height: 0px;
+  transform: translate(-50%, -50%) rotate(0deg) translateY(0px) !important;
+}
+
 
 input,
 textarea,
@@ -243,9 +371,13 @@ select {
 }
 
 #navbar.scrolled {
-  background: rgba(10, 10, 10, 0.92);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
   backdrop-filter: blur(20px);
   height: calc(var(--nav-h) - 20px);
+}
+
+.nav-logo-span {
+  color: var(--white);
 }
 
 .nav-inner {
@@ -261,7 +393,6 @@ select {
   font-family: var(--ff-display);
   font-size: 1.4rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -355,6 +486,23 @@ select {
 .nav-icon-btn:hover {
   color: var(--text);
   background: var(--surface);
+}
+
+.theme-toggle-btn {
+  border-radius: 14px;
+}
+
+.theme-toggle-btn i {
+  transition: transform var(--transition);
+}
+
+.theme-toggle-btn:hover i {
+  transform: rotate(10deg);
+}
+
+.theme-logo-swap {
+  transition: opacity 0.28s ease;
+  opacity: 1;
 }
 
 .cart-count {
@@ -759,7 +907,9 @@ select {
   left: 0;
   right: 0;
   padding: 16px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  background: linear-gradient(to top,
+      color-mix(in srgb, var(--bg) 95%, transparent),
+      transparent);
   transform: translateY(100%);
   transition: transform var(--transition);
   display: flex;
@@ -915,7 +1065,7 @@ select {
 }
 
 .form-input {
-  background: var(--surface);
+  background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px 16px;
@@ -1305,10 +1455,10 @@ textarea.form-input {
 /* ── WhatsApp Floating ── */
 #whatsapp-btn {
   position: fixed;
-  bottom: 28px;
+  bottom: 70px;
   right: 28px;
-  width: 56px;
-  height: 56px;
+  width: 44px;
+  height: 44px;
   background: #25D366;
   border-radius: 50%;
   display: flex;
@@ -1323,30 +1473,15 @@ textarea.form-input {
 }
 
 #whatsapp-btn:hover {
-  transform: scale(1.1);
   box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6);
+  transform: scale(1.1);
 }
 
-@keyframes floatWA {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-#whatsapp-btn:hover {
-  animation: none;
-}
 
 /* ── Scroll to Top ── */
 #scroll-top {
   position: fixed;
-  bottom: 96px;
+  bottom: 126px;
   right: 28px;
   width: 44px;
   height: 44px;
@@ -1378,10 +1513,25 @@ textarea.form-input {
 
 /* ── Footer ── */
 footer {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 64px 0 0;
-  margin-top: 120px;
+  position: relative;
+  background: var(--bg3);
+  padding: 100px 0 0;
+  /* extra for wave space */
+  /* margin-top: 120px; */
+  overflow: hidden;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23c9a84c' d='M0,40 C240,100 480,0 720,40 C960,80 1200,20 1440,60 L1440,0 L0,0 Z'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .footer-grid {

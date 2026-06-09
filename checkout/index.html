@@ -47,7 +47,7 @@
     <div class="nav-inner">
       <a href="/" class="nav-logo">
         <img src="/images/logo.png" alt="The Remarkable Logo" />
-        <span class="logo-text">The <span style="color: white;">Remarkable</span></span>
+        <span class="logo-text">The <span>Remarkable</span></span>
       </a>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
@@ -81,6 +81,24 @@
     <a href="/#about">About</a>
     <a href="/#faq">FAQs</a>
     <a href="/#contact">Contact</a>
+  </div>
+
+  <div id="cart-overlay">
+    <div id="cart-drawer">
+      <div class="cart-drawer-head">
+        <h2 class="cart-drawer-title">Your Cart</h2>
+        <button class="cart-drawer-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="cart-drawer-body"></div>
+      <div class="cart-drawer-foot">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-val">PKR 0</span>
+        </div>
+        <p class="cart-note"><i class="fa-solid fa-truck"></i> Free delivery on orders above PKR 50,000</p>
+        <a href="/checkout/" class="cart-checkout-btn"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+      </div>
+    </div>
   </div>
 
   <!-- PAGE HERO -->
@@ -287,15 +305,46 @@
   </div>
 </section>
 
-  <footer style="margin-top:60px;">
+  <footer>
     <div class="container">
-      <<div class="footer-bottom">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">The <span>Remarkable</span></div>
+          <p class="footer-desc">Pakistan's premier destination for premium laptops.</p>
+          <div class="footer-socials">
+            <a href="/#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="/#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://wa.me/923243183053" class="social-btn"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/shop/">Shop</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Categories</div>
+          <ul class="footer-links">
+            <li><a href="/shop/?cat=business">Business</a></li>
+            <li><a href="/shop/?cat=gaming">Gaming</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-contact-item"><i class="fa-brands fa-whatsapp"></i><span>+92 300 1234567</span></div>
+          <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>hello@theremarkable.pk</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
         <span>© 2026 The Remarkable. All rights reserved.
         </span>
         <span>Designed & Developed by <a href="https://themededitsco.vercel.app/" target="_blank">Themed Edits</a>
         </span>
       </div>
-    </div>
   </footer>
 
   <a href="https://wa.me/923243183053?text=Hello!" id="whatsapp-btn" target="_blank"><i

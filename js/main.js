@@ -18,6 +18,88 @@ function updateCartUI() {
   });
 }
 
+const THEME_STORAGE_KEY = 'tr_theme';
+
+function updateLogoImages(theme) {
+  const paths = {
+    dark: '/images/logo.png',
+    light: '/images/logob.png'
+  };
+  const targetSrc = paths[theme] || paths.dark;
+
+  document.querySelectorAll('img').forEach(img => {
+    const original = img.getAttribute('src');
+    if (!original) return;
+    if (![paths.dark, paths.light].includes(original)) return;
+
+    if (!img.classList.contains('theme-logo-swap')) {
+      img.classList.add('theme-logo-swap');
+    }
+
+    if (original === targetSrc) return;
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.setAttribute('src', targetSrc);
+      img.style.opacity = '1';
+    }, 160);
+  });
+}
+
+// ... Keep THEME_STORAGE_KEY, updateLogoImages, and top of applyTheme identical ...
+
+function applyTheme(theme) {
+  const body = document.body;
+  if (!body) return;
+  body.dataset.theme = theme;
+  body.style.colorScheme = theme;
+  localStorage.setItem(THEME_STORAGE_KEY, theme);
+
+  // Updated meta tag values to look premium
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) {
+    themeMeta.setAttribute('content', theme === 'dark' ? '#0b0f19' : '#ffffff');
+  }
+
+  updateLogoImages(theme);
+}
+
+function initThemeToggle() {
+  const actions = document.querySelector('.nav-actions');
+  if (!actions) return;
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'nav-icon-btn theme-toggle-btn';
+  button.title = 'Toggle theme';
+
+  // Custom structure to support pure CSS vector morphing
+  button.innerHTML = `
+    <div class="theme-toggle-icon">
+      <span class="sun-core"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+      <span class="sun-ray"></span>
+    </div>
+  `;
+
+  button.addEventListener('click', () => {
+    const nextTheme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
+  });
+
+  actions.insertBefore(button, actions.firstChild);
+
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  const preferredTheme = storedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  applyTheme(preferredTheme);
+}
+
+
 function getCartTotal() {
   return cart.reduce((s, i) => s + i.price * i.qty, 0);
 }
@@ -413,6 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLoader();
   initNavbar();
   initCartDrawer();
+  initThemeToggle();
   initScrollTop();
   initReveal();
   initCustomSelects();
