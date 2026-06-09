@@ -1521,6 +1521,11 @@ table.orders-table tr:hover td {
     flex-wrap: wrap;
   }
 
+  .price-range-input{
+    flex: 1;
+    min-width: 120px;
+  }
+
   /* Product detail */
   .product-detail-section {
     padding: 24px 0 48px;
