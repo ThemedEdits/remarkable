@@ -926,8 +926,7 @@ select {
 }
 
 .form-input:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+  box-shadow: 0 0 0 1.2px rgba(201, 168, 76, 1);
 }
 
 .form-input::placeholder {
@@ -1544,6 +1543,10 @@ footer {
     --nav-h: 64px;
   }
 
+  #search-input {
+    width: 100%;
+  }
+
   /* Nav */
   .nav-links {
     display: none;
@@ -1557,7 +1560,7 @@ footer {
     padding: 0 16px;
   }
 
-  .nav-logo span{
+  .nav-logo span {
     display: none;
   }
 
