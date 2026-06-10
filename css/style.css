@@ -1703,6 +1703,9 @@ footer::before {
     grid-template-columns: 1fr 1fr;
     gap: 36px;
   }
+  .nav-logo span{
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
