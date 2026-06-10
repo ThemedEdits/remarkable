@@ -33,6 +33,7 @@
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.8);
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 0.15s ease;
+  --navbar-shadow: 0 2px 22px rgba(255, 255, 255, 0.08);
 
   --nav-h: 72px;
 }
@@ -56,6 +57,7 @@ body[data-theme="light"] {
   --shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
   --shadow-lg: 0 18px 72px rgba(15, 23, 42, 0.1);
   color-scheme: light;
+  --navbar-shadow: 0 2px 22px rgba(0, 0, 0, 0.25);
 }
 
 /* ── Reset ── */
@@ -363,17 +365,32 @@ select {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: var(--nav-h);
+  height: 70px;
   display: flex;
   align-items: center;
-  padding: 0 32px;
-  transition: background var(--transition), height var(--transition), backdrop-filter var(--transition);
+  padding: 2rem 2rem;
+  transition: all var(--transition);
 }
 
 #navbar.scrolled {
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
-  backdrop-filter: blur(20px);
-  height: calc(var(--nav-h) - 20px);
+  background: color-mix(in srgb, var(--bg) 75%, transparent);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  padding: 1rem 4rem;
+  top: 10px;
+  margin: 0 2rem;
+  border-radius: 9999px;
+
+  /* subtle glass border */
+  /* border: 1px solid rgba(255, 255, 255, 0.12); */
+
+  /* depth */
+  box-shadow:
+    var(--navbar-shadow),
+    inset 0 2px 2px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.15);
 }
 
 .nav-logo-span {
@@ -1691,6 +1708,22 @@ footer::before {
 @media (max-width: 768px) {
   :root {
     --nav-h: 64px;
+  }
+
+  .theme-toggle-icon {
+    height: 14px;
+    width: 14px;
+  }
+
+  .sun-core {
+    height: 14px;
+    width: 14px;
+  }
+
+  #navbar.scrolled {
+    margin: 0 1rem;
+    padding: 0 22px;
+    height: 50px;
   }
 
   #search-input {
